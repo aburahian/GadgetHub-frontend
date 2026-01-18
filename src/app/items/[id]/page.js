@@ -2,13 +2,19 @@
 
 import { useState, useEffect, use } from 'react';
 import api from '@/lib/api';
-import { Loader2, ArrowLeft, Shield, Truck, RotateCcw, ShoppingCart, Heart } from 'lucide-react';
+import { Loader2, ArrowLeft, Shield, Truck, RotateCcw, ShoppingCart, Heart, Trash2 } from 'lucide-react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export default function ItemDetailsPage({ params }) {
     const { id } = use(params);
+    const { data: session } = useSession();
+    const router = useRouter();
     const [item, setItem] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [deleting, setDeleting] = useState(false);
 
     useEffect(() => {
         const fetchItem = async () => {
@@ -23,6 +29,22 @@ export default function ItemDetailsPage({ params }) {
         };
         fetchItem();
     }, [id]);
+
+    const handleDelete = async () => {
+        if (!window.confirm('Are you sure you want to delete this item?')) return;
+
+        setDeleting(true);
+        try {
+            await api.delete(`/items/${id}`);
+            toast.success('Item deleted successfully');
+            router.push('/items');
+        } catch (error) {
+            console.error("Error deleting item:", error);
+            toast.error(error.response?.data?.message || 'Failed to delete item');
+        } finally {
+            setDeleting(false);
+        }
+    };
 
     if (loading) {
         return (
@@ -43,9 +65,26 @@ export default function ItemDetailsPage({ params }) {
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <Link href="/items" className="inline-flex items-center text-gray-500 hover:text-indigo-600 mb-8 font-medium">
-                <ArrowLeft className="w-4 h-4 mr-2" /> Back to Collection
-            </Link>
+            <div className="flex items-center justify-between mb-8">
+                <Link href="/items" className="inline-flex items-center text-gray-500 hover:text-indigo-600 font-medium">
+                    <ArrowLeft className="w-4 h-4 mr-2" /> Back to Collection
+                </Link>
+
+                {session && (
+                    <button
+                        onClick={handleDelete}
+                        disabled={deleting}
+                        className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-xl hover:bg-red-100 transition-colors font-medium disabled:opacity-50"
+                    >
+                        {deleting ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                        ) : (
+                            <Trash2 className="w-4 h-4" />
+                        )}
+                        Delete Item
+                    </button>
+                )}
+            </div>
 
             <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
                 <div className="aspect-square bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100">
