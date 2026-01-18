@@ -29,7 +29,7 @@ export default function AddItemPage() {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await api.post('/items/add', {
+            const response = await api.post('/items', {
                 ...formData,
                 price: parseFloat(formData.price)
             }, {

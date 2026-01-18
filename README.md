@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Frontend
 
-## Getting Started
+A modern, responsive frontend built with Next.js 15, featuring authentication and item management.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Landing Page**: 7 distinct sections (Hero, Features, Stats, Testimonials, Pricing, About, Contact)
+- **Authentication**: NextAuth.js integration with Google OAuth
+- **Public Pages**: Browse items and view details
+- **Protected Routes**: Secure "Add Item" page for authenticated users
+- **Modern UI**: Tailwind CSS with premium design
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 Technologies
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Next.js 15 (App Router)
+- Tailwind CSS
+- NextAuth.js
+- Axios
+- React Hot Toast
+- Lucide React Icons
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Setup
 
-## Learn More
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Configure environment variables:**
+   Create a `.env.local` file:
+   ```env
+   NEXT_PUBLIC_API_URL=https://your-backend-url.com/api
+   NEXTAUTH_URL=https://your-frontend-url.com
+   NEXTAUTH_SECRET=your-secret-key
+   GOOGLE_CLIENT_ID=your-google-client-id
+   GOOGLE_CLIENT_SECRET=your-google-client-secret
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Run development server:**
+   ```bash
+   npm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Build for production:**
+   ```bash
+   npm run build
+   npm start
+   ```
 
-## Deploy on Vercel
+## 🌐 Deployment (Vercel)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push code to GitHub
+2. Import repository in Vercel
+3. Add environment variables in Vercel dashboard
+4. Deploy!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 Environment Variables
+
+- `NEXT_PUBLIC_API_URL` - Backend API URL
+- `NEXTAUTH_URL` - Frontend URL
+- `NEXTAUTH_SECRET` - Secret for NextAuth
+- `GOOGLE_CLIENT_ID` - Google OAuth Client ID
+- `GOOGLE_CLIENT_SECRET` - Google OAuth Client Secret
